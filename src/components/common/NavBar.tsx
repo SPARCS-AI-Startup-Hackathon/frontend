@@ -14,7 +14,7 @@ function NavBar() {
       </button>
       <button
         className="flex-1 flex flex-col justify-center items-center active:bg-gray-200 p-4"
-        onClick={() => navigate('/')}>
+        onClick={() => navigate('/main')}>
         <img src={homeIcon} className="p-1" />
         <p className="text-[#FE654F] font-bold text-xs">홈</p>
       </button>
