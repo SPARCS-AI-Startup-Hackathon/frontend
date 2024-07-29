@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+main {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 375px;
+  width: 100dvw;
+  height: calc(100dvh - 89px);
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  align-items: center;
+}
+
+footer {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 375px;
+  width: 100dvw;
+  height: 89px;
+  display: flex;
+  align-items: center;
+}
