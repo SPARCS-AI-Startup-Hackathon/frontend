@@ -1,13 +1,19 @@
 import { useEffect, useState } from 'react'
 
-function DynamicTalkBox() {
-  const [message, setMessage] = useState('')
+interface ParsedMessage {
+  message?: {
+    content?: string
+  }
+  stopReason?: string
+}
 
-  // Parses and extracts content from JSON responses
-  const parseContent = (response: string) => {
+function DynamicTalkBox() {
+  const [message, setMessage] = useState<string>('')
+  const [allMessagesReceived, setAllMessagesReceived] = useState<boolean>(false)
+
+  const parseContent = (response: string): string => {
     try {
-      const parsed = JSON.parse(response)
-      // Extract content if it exists
+      const parsed: ParsedMessage = JSON.parse(response)
       if (parsed.message && parsed.message.content) {
         return parsed.message.content
       }
@@ -17,11 +23,9 @@ function DynamicTalkBox() {
     return ''
   }
 
-  // Parses and extracts content from JSON responses
-  const parseData = (response: string) => {
+  const parseData = (response: string): string => {
     try {
-      const parsed = JSON.parse(response)
-      // Extract cㅅㅂ if it exists
+      const parsed: ParsedMessage = JSON.parse(response)
       if (parsed.stopReason) {
         return parsed.stopReason
       }
@@ -41,7 +45,7 @@ function DynamicTalkBox() {
         console.log('연결됨')
       }
 
-      eventSource.onmessage = (event) => {
+      eventSource.onmessage = (event: MessageEvent) => {
         const content = parseContent(event.data)
 
         setMessage((prev) => prev + content)
@@ -52,6 +56,7 @@ function DynamicTalkBox() {
         if (data === 'stop_before') {
           console.log('All messages received. Closing connection.')
           eventSource.close()
+          setAllMessagesReceived(true)
         }
       }
 
@@ -64,6 +69,26 @@ function DynamicTalkBox() {
       }
     }
   }, [])
+
+  useEffect(() => {
+    if (allMessagesReceived) {
+      speak(message)
+    }
+  }, [allMessagesReceived, message])
+
+  // TTS 기능
+  const speak = (text: string) => {
+    const synth = window.speechSynthesis
+    const utterThis = new SpeechSynthesisUtterance(text)
+    utterThis.onend = () => {
+      console.log('SpeechSynthesisUtterance.onend')
+    }
+    utterThis.onerror = (event) => {
+      console.error('SpeechSynthesisUtterance.onerror', event)
+    }
+
+    synth.speak(utterThis)
+  }
 
   return (
     <div className="flex relative rounded-2xl justify-center text-center w-[90%] max-w-[300px] h-[150px]">
