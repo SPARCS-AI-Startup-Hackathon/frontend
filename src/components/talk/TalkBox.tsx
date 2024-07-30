@@ -59,7 +59,7 @@ function TalkBox() {
         setTimeout(() => {
           setMessageStep((prev) => prev + 1)
           setVisible(true)
-        }, 100) // 작은 지연 시간을 주어 애니메이션이 다시 시작되도록 함
+        }, 100)
       }, currentStep.delay)
 
       return () => clearTimeout(secondTimer)
