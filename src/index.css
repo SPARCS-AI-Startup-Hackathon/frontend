@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'cafe24';
+  src: url('src/assets/fonts/Cafe24Oneprettynight-v2.0.ttf');
+}
+
 main {
   margin-left: auto;
   margin-right: auto;
