@@ -1,5 +1,5 @@
-import bgStartJob from '@assets/bgStartJob.png'
-import bgStartResume from '@assets/bgStartResume.png'
+import bgStartJob from '@assets/images/bgStartJob.png'
+import bgStartResume from '@assets/images/bgStartResume.png'
 import NavBar from '@components/common/NavBar'
 
 function MainPage() {
