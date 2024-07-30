@@ -1,14 +1,18 @@
 import ProgressBar from '@components/common/ProgressBar'
-import { useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
+import { RegisterFormData } from '../../types'
 
 interface RegisterProps {
-  goToNext: () => void
   goToPrevious: () => void
+  goToNext: () => void
+  formData: RegisterFormData
+  updateFormData: (key: keyof RegisterFormData, value: string) => void
 }
 
-function FifthRegister({ goToPrevious, goToNext }: RegisterProps) {
-  const [pr, setPr] = useState('')
+function FirstRegister({ goToPrevious, goToNext, formData, updateFormData }: RegisterProps) {
+  const handleIntroductionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateFormData('introduction', e.target.value)
+  }
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-between">
@@ -23,22 +27,22 @@ function FifthRegister({ goToPrevious, goToNext }: RegisterProps) {
           <input
             className="h-8 rounded-2xl w-full text-lg px-3 py-6 bg-[#F5F5F5] focus:outline-customOrange mt-4 text-[#5E5E5E]"
             type="text"
-            placeholder="예) 저는 조용한 성격이에요."
-            value={pr}
-            onChange={(e) => setPr(e.target.value)}
+            placeholder="예) 저는 조용한 성격이에요"
+            value={formData.introduction}
+            onChange={handleIntroductionChange}
           />
         </div>
       </div>
       <button
         className={`w-[90%] text-white text-xl font-bold p-2.5 px-10 rounded-3xl mb-8 ${
-          pr ? 'bg-customOrange active:bg-orange-400' : 'bg-[#D9D9D9]'
+          formData.introduction ? 'bg-customOrange active:bg-orange-400' : 'bg-[#D9D9D9]'
         }`}
-        onClick={pr ? goToNext : undefined}
-        disabled={!pr}>
+        onClick={formData.introduction ? goToNext : undefined}
+        disabled={!formData.introduction}>
         다음
       </button>
     </div>
   )
 }
 
-export default FifthRegister
+export default FirstRegister

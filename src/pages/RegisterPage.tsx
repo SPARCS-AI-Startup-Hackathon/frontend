@@ -9,8 +9,19 @@ import ThirdRegister from '@components/register/ThirdRegister'
 import { useState } from 'react'
 import { animated, useSpring } from 'react-spring'
 
+import { RegisterFormData } from '../types'
+
 function RegisterPage() {
   const [index, setIndex] = useState(0)
+  const [formData, setFormData] = useState<RegisterFormData>({
+    email: '',
+    password: '',
+    name: '',
+    age: null,
+    tel: '',
+    introduction: '',
+  })
+
   const pages = [
     FirstSignUp,
     SecondRegister,
@@ -41,6 +52,13 @@ function RegisterPage() {
     setIndex((prevIndex) => (prevIndex - 1 + pages.length) % pages.length)
   }
 
+  const updateFormData = (key: keyof RegisterFormData, value: string) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [key]: value,
+    }))
+  }
+
   return (
     <div className="w-dvw max-w-[375px] h-dvh m-auto flex overflow-hidden relative shadow-md">
       {pages.map((Page, i) => (
@@ -52,7 +70,12 @@ function RegisterPage() {
             width: '100%',
             height: '100%',
           }}>
-          <Page goToPrevious={handlePrevious} goToNext={handleNext} />
+          <Page
+            goToPrevious={handlePrevious}
+            goToNext={handleNext}
+            formData={formData}
+            updateFormData={updateFormData}
+          />
         </animated.div>
       ))}
     </div>
