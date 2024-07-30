@@ -1,8 +1,9 @@
 import bgTalk from '@assets/images/bgTalk.png'
 import bitnarae_default from '@assets/images/bitnarae_default.png'
+import TalkBox from '@components/talk/TalkBox'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
-// import bitnarae_talk from '@assets/images/bitnarae_talk.png'
+import '../styles/talk.css' // CSS 파일을 임포트합니다.
 
 function TalkPage() {
   const navigate = useNavigate()
@@ -18,7 +19,10 @@ function TalkPage() {
           onClick={() => navigate('/main')}
         />
       </div>
-      <img src={bitnarae_default} />
+      <div className="relative flex flex-col items-center">
+        <TalkBox />
+        <img src={bitnarae_default} className="mt-8" />
+      </div>
       <button className="w-[90%] text-white text-xl font-bold bg-[#FA8D43] p-2.5 px-10 rounded-3xl mb-10 active:bg-orange-500">
         시작하기
       </button>

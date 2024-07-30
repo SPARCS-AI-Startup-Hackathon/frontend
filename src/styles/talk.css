@@ -1,0 +1,23 @@
+/* 스크롤바 전체 스타일 */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* 스크롤바 트랙 스타일 */
+::-webkit-scrollbar-track {
+  background: #e5e7eb; /* 연한 회색 */
+  border-radius: 10px;
+  margin: 20px 0; /* 위아래 여백 추가 */
+}
+
+/* 스크롤바 핸들(썸) 스타일 */
+::-webkit-scrollbar-thumb {
+  background: #fa8d43; /* 주황색 */
+  border-radius: 10px;
+  height: 30px; /* 스크롤바 핸들의 높이를 줄임 */
+}
+
+/* 스크롤바 핸들(썸)이 호버될 때 스타일 */
+::-webkit-scrollbar-thumb:hover {
+  background: #d97706; /* 어두운 주황색 */
+}
