@@ -1,12 +1,17 @@
 import bgStartJob from '@assets/images/bgStartJob.png'
 import bgStartResume from '@assets/images/bgStartResume.png'
 import NavBar from '@components/common/NavBar'
+import { useNavigate } from 'react-router-dom'
 
 function MainPage() {
+  const navigate = useNavigate()
+
   return (
     <>
       <main className="p-6 shadow-md">
-        <div className="h-[70%] w-[90%] relative hover:scale-105 transition-transform duration-300">
+        <div
+          className="h-[70%] w-[90%] relative hover:scale-105 transition-transform duration-300"
+          onClick={() => navigate('/talk')}>
           <img src={bgStartJob} className="w-full h-full absolute" />
           <p className="absolute text-[#FEAA61] text-lg font-bold top-8 left-5">
             빛나래와의 대화를 통해
