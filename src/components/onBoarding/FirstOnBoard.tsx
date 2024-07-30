@@ -15,7 +15,7 @@ function SecondOnBoard({ index, totalPages, goToNext, goToPrevious }: OnBoardPro
       className="w-full h-full bg-cover bg-center flex flex-col items-center justify-between"
       style={{ backgroundImage: `url(${bgOnBoard_1})` }}>
       <div className="text-[#FEAA61] text-2xl font-[cafe24] text-left self-start ml-8 mt-16">
-        2222222
+        내 나이가 몇인데..
         <br />
         적당히 할 일 찾거나
         <br />

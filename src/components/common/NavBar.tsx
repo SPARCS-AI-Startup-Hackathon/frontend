@@ -1,6 +1,6 @@
-import homeIcon from '@assets/homeIcon.png'
-import personIcon from '@assets/personIcon.png'
-import resumeIcon from '@assets/resumeIcon.png'
+import homeIcon from '@assets/images/homeIcon.png'
+import personIcon from '@assets/images/personIcon.png'
+import resumeIcon from '@assets/images/resumeIcon.png'
 import { useNavigate } from 'react-router-dom'
 
 function NavBar() {
