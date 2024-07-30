@@ -1,4 +1,4 @@
-import bgOnBoard_1 from '@assets/images/bgOnBoard_1.png'
+import bgOnBoard_5 from '@assets/images/bgOnBoard_5.png'
 import { GiPlainCircle } from 'react-icons/gi'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 
@@ -9,21 +9,16 @@ interface OnBoardProps {
   goToPrevious: () => void
 }
 
-function SecondOnBoard({ index, totalPages, goToNext, goToPrevious }: OnBoardProps) {
+function FifthOnBoard({ index, totalPages, goToNext, goToPrevious }: OnBoardProps) {
   return (
     <div
       className="w-full h-full bg-cover bg-center flex flex-col items-center justify-between"
-      style={{ backgroundImage: `url(${bgOnBoard_1})` }}>
+      style={{ backgroundImage: `url(${bgOnBoard_5})` }}>
       <div className="text-[#FEAA61] text-2xl font-[cafe24] text-left self-start ml-8 mt-16">
-        2222222
+        저희가 앞으로 당신의 인생도
         <br />
-        적당히 할 일 찾거나
-        <br />
-        쉬어야지..
-        <br />
-        이런 생각때문에
-        <br />
-        우울하신 적 있나요?
+        계속 빛날 수 있게,
+        <br />그 길을 함께할게요.
       </div>
       <div className="w-full flex justify-between items-center mb-6">
         <GrFormPrevious
@@ -52,4 +47,4 @@ function SecondOnBoard({ index, totalPages, goToNext, goToPrevious }: OnBoardPro
   )
 }
 
-export default SecondOnBoard
+export default FifthOnBoard

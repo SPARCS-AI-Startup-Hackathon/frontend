@@ -1,4 +1,4 @@
-import bgOnBoard_1 from '@assets/images/bgOnBoard_1.png'
+import bgOnBoard_2 from '@assets/images/bgOnBoard_2.png'
 import { GiPlainCircle } from 'react-icons/gi'
 import { GrFormNext, GrFormPrevious } from 'react-icons/gr'
 
@@ -13,17 +13,17 @@ function SecondOnBoard({ index, totalPages, goToNext, goToPrevious }: OnBoardPro
   return (
     <div
       className="w-full h-full bg-cover bg-center flex flex-col items-center justify-between"
-      style={{ backgroundImage: `url(${bgOnBoard_1})` }}>
+      style={{ backgroundImage: `url(${bgOnBoard_2})` }}>
       <div className="text-[#FEAA61] text-2xl font-[cafe24] text-left self-start ml-8 mt-16">
-        2222222
+        하지만
         <br />
-        적당히 할 일 찾거나
+        자신의 나이에 0.8을 곱해야
         <br />
-        쉬어야지..
+        요즘 세상에 맞는 나이라는
         <br />
-        이런 생각때문에
+        [현대 나이 계산법]에 따르면
         <br />
-        우울하신 적 있나요?
+        당신도 청춘이에요.
       </div>
       <div className="w-full flex justify-between items-center mb-6">
         <GrFormPrevious
