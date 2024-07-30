@@ -30,7 +30,7 @@ function FifthRegister({ goToPrevious, goToNext }: RegisterProps) {
         </div>
       </div>
       <button
-        className={`w-[80%] text-white text-xl font-bold p-2.5 px-10 rounded-3xl mb-8 ${
+        className={`w-[90%] text-white text-xl font-bold p-2.5 px-10 rounded-3xl mb-8 ${
           pr ? 'bg-customOrange active:bg-orange-400' : 'bg-[#D9D9D9]'
         }`}
         onClick={pr ? goToNext : undefined}
