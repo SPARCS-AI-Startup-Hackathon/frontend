@@ -15,7 +15,7 @@ function FifthOnBoard() {
         <br />그 길을 함께할게요.
       </div>
       <button
-        className="w-[80%] text-white text-xl bg-[#FA8D43] p-2.5 px-10 rounded-3xl mb-6 active:bg-orange-500"
+        className="w-[90%] text-white text-xl bg-[#FA8D43] p-2.5 px-10 rounded-3xl mb-6 active:bg-orange-500"
         onClick={() => navigate('/main')}>
         시작하기
       </button>
