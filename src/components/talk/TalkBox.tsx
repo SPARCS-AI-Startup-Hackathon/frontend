@@ -1,6 +1,21 @@
+import { useEffect, useState } from 'react'
+
 function TalkBox() {
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(true)
+    }, 500)
+
+    return () => clearTimeout(timer)
+  }, [])
+
   return (
-    <div className="flex relative rounded-2xl justify-center text-center w-[90%] max-w-[300px] h-[150px]">
+    <div
+      className={`flex relative rounded-2xl justify-center text-center w-[90%] max-w-[300px] h-[150px] ${
+        visible ? 'talkBox-animate' : 'talkBox-invisible'
+      }`}>
       <div className="absolute inset-0 bg-[#FA8D43] blur-xl rounded-lg"></div>
       <div className="flex relative items-center bg-white p-6 pt-4 rounded-3xl w-full h-full overflow-y-auto">
         <p className="text-xl py-2 break-words text-[#8F8F8F]">

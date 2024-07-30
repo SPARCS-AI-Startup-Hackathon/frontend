@@ -5,19 +5,38 @@
 
 /* 스크롤바 트랙 스타일 */
 ::-webkit-scrollbar-track {
-  background: #e5e7eb; /* 연한 회색 */
+  background: #e5e7eb;
   border-radius: 10px;
-  margin: 20px 0; /* 위아래 여백 추가 */
+  margin: 20px 0;
 }
 
 /* 스크롤바 핸들(썸) 스타일 */
 ::-webkit-scrollbar-thumb {
-  background: #fa8d43; /* 주황색 */
-  border-radius: 10px;
-  height: 30px; /* 스크롤바 핸들의 높이를 줄임 */
+  background: #fa8d43;
+  height: 30px;
 }
 
 /* 스크롤바 핸들(썸)이 호버될 때 스타일 */
 ::-webkit-scrollbar-thumb:hover {
-  background: #d97706; /* 어두운 주황색 */
+  background: #d97706;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.talkBox-animate {
+  animation: fadeInUp 0.5s ease-in-out forwards;
+  visibility: visible;
+}
+
+.talkBox-invisible {
+  visibility: hidden;
 }

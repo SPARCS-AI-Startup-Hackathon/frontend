@@ -3,7 +3,7 @@ import bitnarae_default from '@assets/images/bitnarae_default.png'
 import TalkBox from '@components/talk/TalkBox'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
-import '../styles/talk.css' // CSS 파일을 임포트합니다.
+import '../styles/talk.css'
 
 function TalkPage() {
   const navigate = useNavigate()
