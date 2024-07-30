@@ -9,7 +9,7 @@ interface OnBoardProps {
   goToPrevious: () => void
 }
 
-function SecondOnBoard({ index, totalPages, goToNext, goToPrevious }: OnBoardProps) {
+function FirstOnBoard({ index, totalPages, goToNext, goToPrevious }: OnBoardProps) {
   return (
     <div
       className="w-full h-full bg-cover bg-center flex flex-col items-center justify-between"
@@ -52,4 +52,4 @@ function SecondOnBoard({ index, totalPages, goToNext, goToPrevious }: OnBoardPro
   )
 }
 
-export default SecondOnBoard
+export default FirstOnBoard
