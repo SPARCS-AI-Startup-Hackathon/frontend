@@ -7,7 +7,7 @@ import DynamicTalkBox from '@components/talk/DynamicTalkBox'
 import { useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
-import useAudioStore from 'store/store'
+import { useAudioStore } from 'store/store'
 import '../styles/talk.css'
 
 declare global {

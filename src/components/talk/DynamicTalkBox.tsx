@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { useEffect, useRef, useState } from 'react'
-import useAudioStore from '../../store/store'
+import { useEffect, useRef } from 'react'
+import { useAudioStore, useMessageStore } from '../../store/store'
 
 interface ParsedMessage {
   message?: {
@@ -10,8 +10,7 @@ interface ParsedMessage {
 }
 
 function DynamicTalkBox() {
-  const [message, setMessage] = useState<string>('')
-  const [allMessagesReceived, setAllMessagesReceived] = useState<boolean>(false)
+  const { message, setMessage, allMessagesReceived, setAllMessagesReceived } = useMessageStore()
   const audioRef = useRef<HTMLAudioElement>(null)
   const { setPlaying } = useAudioStore()
 
@@ -52,7 +51,7 @@ function DynamicTalkBox() {
       eventSource.onmessage = (event: MessageEvent) => {
         const content = parseContent(event.data)
 
-        setMessage((prev) => prev + content)
+        setMessage((prev: string) => prev + content)
 
         const data = parseData(event.data)
         console.log('New message:', data)
@@ -72,7 +71,7 @@ function DynamicTalkBox() {
         eventSource.close()
       }
     }
-  }, [])
+  }, [setMessage, setAllMessagesReceived])
 
   useEffect(() => {
     if (allMessagesReceived) {
@@ -130,7 +129,7 @@ function DynamicTalkBox() {
         setPlaying(false)
       }
     }
-  }, [])
+  }, [setPlaying])
 
   return (
     <div
