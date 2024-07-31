@@ -3,6 +3,7 @@ import MainPage from '@pages/MainPage'
 import OnBoardPage from '@pages/OnBoardPage'
 import RegisterPage from '@pages/RegisterPage'
 import TalkPage from '@pages/TalkPage'
+import TalkRecommendPage from '@pages/TalkRecommendPage'
 import TalkStartPage from '@pages/TalkStartPage'
 import TestPage from '@pages/TestPage'
 import WelcomePage from '@pages/WelcomePage'
@@ -20,6 +21,7 @@ function App() {
           <Route path="/main" element={<MainPage />} />
           <Route path="/talk" element={<TalkPage />} />
           <Route path="/talk_start" element={<TalkStartPage />} />
+          <Route path="/talk_recommend" element={<TalkRecommendPage />} />
           <Route path="/test" element={<TestPage />} />
         </Routes>
       </BrowserRouter>

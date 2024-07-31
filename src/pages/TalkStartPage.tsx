@@ -187,16 +187,17 @@ function TalkStartPage() {
             />
           ) : (
             <div className="flex space-x-4">
-              <button className="bg-orange-500 text-white py-2 px-4 rounded-lg">직업 추천</button>
-              <button className="bg-orange-500 text-white py-2 px-4 rounded-lg">
-                다른 추천은?
+              <button
+                className="bg-orange-500 text-white py-2 px-4 rounded-xl"
+                onClick={() => navigate('/talk_recommend')}>
+                직업 추천을 받을래요
               </button>
             </div>
           )}
         </div>
       </div>
       <button
-        className="w-full text-[#FF8E4E] text-lg font-semibold bg-white p-2.5 px-10 z-10 relative"
+        className="w-full text-[#FF8E4E] text-lg font-semibold bg-white p-2.5 px-10 z-10 relative active:bg-orange-50"
         onClick={handleChatLogClick}>
         대화 기록 보기
       </button>

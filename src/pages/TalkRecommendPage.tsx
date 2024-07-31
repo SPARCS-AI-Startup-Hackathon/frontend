@@ -1,0 +1,107 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { getChatRecordAPI } from '@apis/chat'
+import bgTalk from '@assets/images/bgTalk.png'
+import bitnarae_default from '@assets/images/bitnarae_default.png'
+import RecommendTalkBox from '@components/talk/RecommendTalkBox'
+import { useEffect, useState } from 'react'
+import { FaArrowLeftLong } from 'react-icons/fa6'
+import { useNavigate } from 'react-router-dom'
+import '../styles/talk.css'
+
+interface Record {
+  sender: string
+  content: string
+}
+
+interface ChatRecord {
+  chatResponses: Record[]
+}
+
+function TalkRecommendPage() {
+  const navigate = useNavigate()
+  const [isChatLogVisible, setIsChatLogVisible] = useState<boolean>(false)
+  const [chatRecords, setChatRecords] = useState<ChatRecord | null>(null)
+
+  useEffect(() => {
+    if (isChatLogVisible) {
+      const fetchChatRecords = async () => {
+        const token = localStorage.getItem('accessToken')
+        if (token) {
+          const data = await getChatRecordAPI({ token })
+          if (data && typeof data !== 'boolean') {
+            setChatRecords(data)
+          }
+        }
+      }
+      fetchChatRecords()
+    }
+  }, [isChatLogVisible])
+
+  const handleChatLogClick = (): void => {
+    setIsChatLogVisible(true)
+  }
+
+  const handleCloseChatLog = (): void => {
+    setIsChatLogVisible(false)
+  }
+
+  const name = localStorage.getItem('name')
+
+  return (
+    <div
+      className="w-dvw max-w-[375px] h-dvh m-auto bg-cover bg-center flex flex-col items-center justify-between shadow-md"
+      style={{ backgroundImage: `url(${bgTalk})` }}>
+      <div className="w-full flex justify-start p-4 py-5">
+        <FaArrowLeftLong
+          size="28"
+          className="cursor-pointer text-customOrange"
+          onClick={() => navigate('/main')}
+        />
+      </div>
+      <div className="relative flex flex-col items-center">
+        <RecommendTalkBox />
+        <img src={bitnarae_default} className="mt-8 mb-4" />
+      </div>
+      <div className="flex space-x-4 mb-4 -mt-8">
+        <button className="bg-orange-500 text-white py-4 px-8 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300">
+          맞는 것 같아!
+        </button>
+        <button className="bg-orange-500 text-white py-4 px-8 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300">
+          다른 추천은?
+        </button>
+      </div>
+      <button
+        className="w-full text-[#FF8E4E] text-lg font-semibold bg-white p-2.5 px-10 z-10 relative active:bg-orange-50"
+        onClick={handleChatLogClick}>
+        대화 기록 보기
+      </button>
+      <div
+        className={`fixed bottom-0 left-0 right-0 w-dvw max-w-[375px] m-auto h-2/3 bg-white shadow-lg border transition-transform duration-500 ${
+          isChatLogVisible ? 'translate-y-0' : 'translate-y-full'
+        } z-20`}>
+        <div className="flex justify-between p-4 border-b border-gray-300">
+          <h2 className="text-xl font-semibold">대화 기록</h2>
+          <button onClick={handleCloseChatLog}>닫기</button>
+        </div>
+        <div className="p-6 pb-16 h-full overflow-y-auto">
+          {chatRecords ? (
+            chatRecords.chatResponses.map((record, index) => (
+              <div
+                key={index}
+                className={`mb-4 p-4 rounded-lg max-w-[70%] ${
+                  record.sender === name ? 'bg-[#FFEAC1] ml-auto' : 'bg-gray-200 mr-auto'
+                }`}>
+                <p className="font-bold">{record.sender}</p>
+                <p>{record.content}</p>
+              </div>
+            ))
+          ) : (
+            <p></p>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default TalkRecommendPage
