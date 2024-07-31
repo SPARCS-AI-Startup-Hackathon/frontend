@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getChatRecordAPI } from '@apis/chat'
+import { recommendJobAPI } from '@apis/job'
 import bgTalk from '@assets/images/bgTalk.png'
 import bitnarae_default from '@assets/images/bitnarae_default.png'
 import bitnarae_talk from '@assets/images/bitnarea_talk.png'
@@ -8,7 +9,7 @@ import DynamicTalkBox from '@components/talk/DynamicTalkBox'
 import { useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
-import { useAudioStore } from 'store/store'
+import { useAudioStore, useConnectionStore, useLoadingStore } from 'store/store'
 import useTranscriptHandler from '../hooks/useTranscriptHandler'
 import '../styles/talk.css'
 
@@ -37,6 +38,8 @@ function TalkStartPage() {
   const [transcript, setTranscript] = useState<string>('')
   const [isChatLogVisible, setIsChatLogVisible] = useState<boolean>(false)
   const [chatRecords, setChatRecords] = useState<ChatRecord | null>(null)
+  const { connectionCount } = useConnectionStore()
+  const { loading, setLoading } = useLoadingStore()
 
   useTranscriptHandler(transcript)
 
@@ -151,6 +154,28 @@ function TalkStartPage() {
     setIsChatLogVisible(false)
   }
 
+  const handleRecommendClick = async (): Promise<void> => {
+    const token = localStorage.getItem('accessToken')
+    if (token) {
+      try {
+        setLoading(true)
+        const res = await recommendJobAPI({ token })
+        if (res && typeof res !== 'boolean') {
+          sessionStorage.setItem('job', res.recommendJob)
+          navigate('/talk_recommend')
+        } else {
+          console.error('Failed to fetch recommended job')
+        }
+      } catch (error) {
+        console.error('Error fetching recommended job:', error)
+      } finally {
+        setLoading(false)
+      }
+    } else {
+      console.error('No access token found')
+    }
+  }
+
   const name = localStorage.getItem('name')
 
   return (
@@ -178,15 +203,46 @@ function TalkStartPage() {
               <div className="w-36 h-20 rounded-full bg-orange-500 opacity-50"></div>
             </div>
           )}
-          <img
-            src={recording_img}
-            className="cursor-pointer relative z-10 hover:scale-110 transition-transform duration-300"
-            onClick={handleRecordingClick}
-          />
+          {connectionCount < 3 ? (
+            <img
+              src={recording_img}
+              className="cursor-pointer relative z-10 hover:scale-110 transition-transform duration-300"
+              onClick={handleRecordingClick}
+            />
+          ) : (
+            <div className="w-full flex space-x-4">
+              <button
+                className="bg-orange-500 text-white py-4 px-8 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300 w-64 h-14 mt-4 mb-2"
+                onClick={handleRecommendClick}
+                disabled={loading}>
+                {loading ? (
+                  <svg
+                    className="animate-spin h-5 w-5 text-white mx-auto"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24">
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                ) : (
+                  '직업 추천을 받을래요!'
+                )}
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <button
-        className="w-full text-[#FF8E4E] text-lg font-semibold bg-white p-2.5 px-10 z-10 relative"
+        className="w-full text-[#FF8E4E] text-lg font-semibold bg-white p-2.5 px-10 z-10 relative active:bg-orange-50"
         onClick={handleChatLogClick}>
         대화 기록 보기
       </button>

@@ -1,10 +1,11 @@
 import { answerAPI } from '@apis/answer'
 import { useEffect } from 'react'
-import { useMessageStore } from 'store/store'
+import { useConnectionStore, useMessageStore } from 'store/store'
 import { parseContent, parseData } from '../utils/parser'
 
 const useTranscriptHandler = (transcript: string) => {
   const { setMessage, setAllMessagesReceived } = useMessageStore()
+  const { incrementConnectionCount } = useConnectionStore()
 
   useEffect(() => {
     if (transcript) {
@@ -19,6 +20,7 @@ const useTranscriptHandler = (transcript: string) => {
 
             eventSource.onopen = () => {
               console.log('새롭게 연결됨')
+              incrementConnectionCount()
             }
 
             eventSource.onmessage = (event: MessageEvent) => {
@@ -49,7 +51,7 @@ const useTranscriptHandler = (transcript: string) => {
           })
       }
     }
-  }, [transcript, setMessage, setAllMessagesReceived])
+  }, [transcript, setMessage, setAllMessagesReceived, incrementConnectionCount])
 }
 
 export default useTranscriptHandler

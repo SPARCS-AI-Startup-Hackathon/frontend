@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router-dom'
 function FifthOnBoard() {
   const navigate = useNavigate()
 
+  const handleButtonClick = () => {
+    localStorage.setItem('isVisited', 'true')
+    navigate('/welcome')
+  }
+
   return (
     <div
       className="w-full h-full bg-cover bg-center flex flex-col items-center justify-between"
@@ -16,7 +21,7 @@ function FifthOnBoard() {
       </div>
       <button
         className="w-[90%] text-white text-xl font-bold bg-[#FA8D43] p-2.5 px-10 rounded-3xl mb-6 active:bg-orange-500"
-        onClick={() => navigate('/main')}>
+        onClick={handleButtonClick}>
         시작하기
       </button>
     </div>
