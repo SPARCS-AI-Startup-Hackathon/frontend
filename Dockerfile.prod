@@ -8,6 +8,6 @@ COPY ./package.json ./
 
 COPY . ./
 
-RUN yarn
+RUN npm
 
-CMD ["yarn", "build"]
+CMD ["npm", "run", "build"]
