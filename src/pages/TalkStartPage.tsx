@@ -89,7 +89,7 @@ function TalkStartPage() {
           )}
           <img
             src={recording_img}
-            className="cursor-pointer relative z-10"
+            className="cursor-pointer relative z-10 hover:scale-110 transition-transform duration-300"
             onClick={() => setIsRecording(!isRecording)}
           />
         </div>

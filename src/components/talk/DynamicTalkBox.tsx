@@ -134,7 +134,7 @@ function DynamicTalkBox() {
 
   return (
     <div
-      className="flex relative rounded-2xl justify-center text-center w-[90%] max-w-[300px] h-[150px]"
+      className="flex relative rounded-2xl justify-center text-center w-[90%] max-w-[300px] h-[150px] hover:scale-105 transition-transform duration-300"
       onClick={handleUserInteraction}>
       <div className="absolute inset-0 bg-[#FA8D43] blur-xl rounded-lg"></div>
       <div className="flex relative items-center justify-center bg-white p-4 pt-4 rounded-3xl w-full h-full overflow-y-auto text-xl text-[#8F8F8F]">
