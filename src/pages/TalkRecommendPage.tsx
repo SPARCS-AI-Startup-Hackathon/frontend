@@ -85,9 +85,9 @@ function TalkRecommendPage() {
       </div>
       <div className="relative flex flex-col items-center">
         <RecommendTalkBox />
-        <img src={bitnarae_default} className="mt-8 mb-4" />
+        <img src={bitnarae_default} className="mt-8 mb-6" />
       </div>
-      <div className="flex space-x-4 mb-4 -mt-8">
+      <div className="flex space-x-4 -mt-16">
         <button className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300">
           맞는 것
           <br />
@@ -123,7 +123,9 @@ function TalkRecommendPage() {
             </>
           )}
         </button>
-        <button className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300">
+        <button
+          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+          onClick={() => navigate('/talk_start')}>
           다시
           <br />
           대화하자
