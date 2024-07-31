@@ -92,18 +92,22 @@ function TalkRecommendPage() {
       </div>
       <div className="relative flex flex-col items-center">
         <RecommendTalkBox />
-        <img src={bitnarae_default} className="mt-8 mb-6" />
+        <img src={bitnarae_default} className="mt-8 mb-2" />
+        <div className="relative -mt-8 mb-16  hover:scale-110 transition-transform duration-300 cursor-pointer">
+          <button className="text-white font-bold text-lg">이유 듣기</button>
+          <div className="absolute inset-0 bg-[#FA8D43] blur-sm opacity-30 p-4 rounded-3xl"></div>
+        </div>
       </div>
       <div className="flex space-x-4 -mt-16">
         <button
-          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-20 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
           onClick={() => navigate('/talk_resume')}>
           맞는 것
           <br />
           같아!
         </button>
         <button
-          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-20 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
           onClick={handleReRecommendClick}
           disabled={loading}>
           {loading ? (
@@ -133,7 +137,7 @@ function TalkRecommendPage() {
           )}
         </button>
         <button
-          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-20 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
           onClick={handleReTalk}>
           다시
           <br />
