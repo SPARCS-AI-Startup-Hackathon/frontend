@@ -30,14 +30,17 @@ export const useMessageStore = create<MessageState>((set) => ({
 }))
 
 /* connection */
+
 interface ConnectionState {
   connectionCount: number
   incrementConnectionCount: () => void
+  setConnectionCount: (count: number) => void
 }
 
 export const useConnectionStore = create<ConnectionState>((set) => ({
   connectionCount: 0,
   incrementConnectionCount: () => set((state) => ({ connectionCount: state.connectionCount + 1 })),
+  setConnectionCount: (count: number) => set(() => ({ connectionCount: count })),
 }))
 
 /* loading */

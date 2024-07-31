@@ -7,7 +7,7 @@ import RecommendTalkBox from '@components/talk/RecommendTalkBox'
 import { useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
-import { useLoadingStore } from 'store/store'
+import { useConnectionStore, useLoadingStore } from 'store/store'
 import '../styles/talk.css'
 
 interface Record {
@@ -24,6 +24,7 @@ function TalkRecommendPage() {
   const [isChatLogVisible, setIsChatLogVisible] = useState<boolean>(false)
   const [chatRecords, setChatRecords] = useState<ChatRecord | null>(null)
   const { loading, setLoading } = useLoadingStore()
+  const { connectionCount, setConnectionCount } = useConnectionStore()
 
   useEffect(() => {
     if (isChatLogVisible) {
@@ -70,6 +71,12 @@ function TalkRecommendPage() {
     } else {
       console.error('No access token found')
     }
+  }
+
+  const handleReTalk = (): void => {
+    setConnectionCount(0)
+    console.log(connectionCount)
+    navigate('/talk_start')
   }
 
   return (
@@ -127,7 +134,7 @@ function TalkRecommendPage() {
         </button>
         <button
           className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
-          onClick={() => navigate('/talk_start')}>
+          onClick={handleReTalk}>
           다시
           <br />
           대화하자
