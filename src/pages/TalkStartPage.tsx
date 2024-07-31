@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
 import { useAudioStore } from 'store/store'
+import useTranscriptHandler from '../hooks/useTranscriptHandler'
 import '../styles/talk.css'
 
 declare global {
@@ -23,6 +24,9 @@ function TalkStartPage() {
   const [currentImage, setCurrentImage] = useState<string>(bitnarae_default)
   const [isRecording, setIsRecording] = useState<boolean>(false)
   const [blurStep, setBlurStep] = useState<number>(0)
+  const [transcript, setTranscript] = useState<string>('')
+
+  useTranscriptHandler(transcript)
 
   useEffect(() => {
     let interval: NodeJS.Timeout
@@ -97,8 +101,8 @@ function TalkStartPage() {
     recognition.start()
 
     recognition.onresult = (event: any) => {
-      const transcript = event.results[0][0].transcript
-      console.log('음성 인식 결과:', transcript)
+      const transcriptResult = event.results[0][0].transcript
+      setTranscript(transcriptResult)
     }
 
     recognition.onspeechend = () => {
