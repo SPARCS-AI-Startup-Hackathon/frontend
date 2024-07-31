@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import bgTalk from '@assets/images/bgTalk.png'
 import bitnarae_default from '@assets/images/bitnarae_default.png'
 import bitnarae_talk from '@assets/images/bitnarea_talk.png'
@@ -8,6 +9,13 @@ import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
 import useAudioStore from 'store/store'
 import '../styles/talk.css'
+
+declare global {
+  interface Window {
+    SpeechRecognition: any
+    webkitSpeechRecognition: any
+  }
+}
 
 function TalkStartPage() {
   const navigate = useNavigate()
@@ -54,7 +62,7 @@ function TalkStartPage() {
     }
   }, [isRecording])
 
-  const getBlurClass = () => {
+  const getBlurClass = (): string => {
     switch (blurStep) {
       case 1:
         return 'blur-md'
@@ -64,6 +72,43 @@ function TalkStartPage() {
         return 'blur-xl'
       default:
         return 'invisible'
+    }
+  }
+
+  const handleRecordingClick = (): void => {
+    setIsRecording(!isRecording)
+    if (!isRecording) {
+      startRecognition()
+    }
+  }
+
+  const startRecognition = (): void => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!SpeechRecognition) {
+      alert('이 브라우저는 음성 인식을 지원하지 않습니다.')
+      return
+    }
+
+    const recognition = new SpeechRecognition()
+    recognition.lang = 'ko-KR'
+    recognition.interimResults = false
+    recognition.maxAlternatives = 1
+
+    recognition.start()
+
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript
+      console.log('음성 인식 결과:', transcript)
+    }
+
+    recognition.onspeechend = () => {
+      recognition.stop()
+      setIsRecording(false)
+    }
+
+    recognition.onerror = (event: any) => {
+      console.error('음성 인식 오류:', event.error)
+      setIsRecording(false)
     }
   }
 
@@ -90,7 +135,7 @@ function TalkStartPage() {
           <img
             src={recording_img}
             className="cursor-pointer relative z-10 hover:scale-110 transition-transform duration-300"
-            onClick={() => setIsRecording(!isRecording)}
+            onClick={handleRecordingClick}
           />
         </div>
       </div>
