@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { useEffect, useRef, useState } from 'react'
 
 interface ParsedMessage {
   message?: {
@@ -10,6 +11,7 @@ interface ParsedMessage {
 function DynamicTalkBox() {
   const [message, setMessage] = useState<string>('')
   const [allMessagesReceived, setAllMessagesReceived] = useState<boolean>(false)
+  const audioRef = useRef<HTMLAudioElement>(null)
 
   const parseContent = (response: string): string => {
     try {
@@ -72,29 +74,55 @@ function DynamicTalkBox() {
 
   useEffect(() => {
     if (allMessagesReceived) {
-      speak(message)
+      fetchTTS(message)
     }
   }, [allMessagesReceived, message])
 
-  // TTS 기능
-  const speak = (text: string) => {
-    const synth = window.speechSynthesis
-    const utterThis = new SpeechSynthesisUtterance(text)
-    utterThis.onend = () => {
-      console.log('SpeechSynthesisUtterance.onend')
-    }
-    utterThis.onerror = (event) => {
-      console.error('SpeechSynthesisUtterance.onerror', event)
-    }
+  const fetchTTS = async (text: string) => {
+    try {
+      const response = await axios.post(
+        '/clova/tts-premium/v1/tts',
+        new URLSearchParams({
+          speaker: 'nara',
+          text,
+          volume: '0',
+          speed: '0',
+          pitch: '0',
+          format: 'mp3',
+        }),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-NCP-APIGW-API-KEY-ID': import.meta.env.VITE_CLOVA_CLIENT_ID!,
+            'X-NCP-APIGW-API-KEY': import.meta.env.VITE_CLOVA_CLIENT_SECRET!,
+          },
+          responseType: 'blob',
+        },
+      )
 
-    synth.speak(utterThis)
+      const audioUrl = URL.createObjectURL(response.data)
+      if (audioRef.current) {
+        audioRef.current.src = audioUrl
+      }
+    } catch (error) {
+      console.error('Failed to fetch TTS audio:', error)
+    }
+  }
+
+  const handleUserInteraction = () => {
+    if (audioRef.current) {
+      audioRef.current.play().catch((error) => console.error('Audio play failed:', error))
+    }
   }
 
   return (
-    <div className="flex relative rounded-2xl justify-center text-center w-[90%] max-w-[300px] h-[150px]">
+    <div
+      className="flex relative rounded-2xl justify-center text-center w-[90%] max-w-[300px] h-[150px]"
+      onClick={handleUserInteraction}>
       <div className="absolute inset-0 bg-[#FA8D43] blur-xl rounded-lg"></div>
       <div className="flex relative items-center justify-center bg-white p-4 pt-4 rounded-3xl w-full h-full overflow-y-auto text-xl text-[#8F8F8F]">
         {message}
+        <audio ref={audioRef} />
       </div>
       <div className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 border-l-[20px] border-l-transparent border-r-[20px] border-r-transparent border-t-[30px] border-t-white"></div>
     </div>
