@@ -29,6 +29,7 @@ export const useMessageStore = create<MessageState>((set) => ({
   setAllMessagesReceived: (received) => set({ allMessagesReceived: received }),
 }))
 
+/* connection */
 interface ConnectionState {
   connectionCount: number
   incrementConnectionCount: () => void
@@ -37,4 +38,15 @@ interface ConnectionState {
 export const useConnectionStore = create<ConnectionState>((set) => ({
   connectionCount: 0,
   incrementConnectionCount: () => set((state) => ({ connectionCount: state.connectionCount + 1 })),
+}))
+
+/* loading */
+interface LoadingState {
+  loading: boolean
+  setLoading: (loading: boolean) => void
+}
+
+export const useLoadingStore = create<LoadingState>((set) => ({
+  loading: false,
+  setLoading: (loading) => set({ loading }),
 }))
