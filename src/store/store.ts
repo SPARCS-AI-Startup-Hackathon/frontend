@@ -28,3 +28,13 @@ export const useMessageStore = create<MessageState>((set) => ({
     })),
   setAllMessagesReceived: (received) => set({ allMessagesReceived: received }),
 }))
+
+interface ConnectionState {
+  connectionCount: number
+  incrementConnectionCount: () => void
+}
+
+export const useConnectionStore = create<ConnectionState>((set) => ({
+  connectionCount: 0,
+  incrementConnectionCount: () => set((state) => ({ connectionCount: state.connectionCount + 1 })),
+}))

@@ -11,6 +11,7 @@ function LoginPage() {
   const handleSubmit = async () => {
     const res = await loginAPI({ email, password })
     if (res && typeof res !== 'boolean') {
+      localStorage.setItem('name', res.name)
       localStorage.setItem('accessToken', res.accessToken)
       localStorage.setItem('refreshToken', res.refreshToken)
       alert('로그인 되었습니다.')

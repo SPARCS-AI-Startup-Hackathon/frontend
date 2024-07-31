@@ -7,6 +7,7 @@ interface PostData {
 }
 
 interface ApiResponse {
+  name: string
   accessToken: string
   refreshToken: string
   accessTokenValidationTime: number
