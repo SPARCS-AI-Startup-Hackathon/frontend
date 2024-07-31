@@ -203,7 +203,7 @@ function TalkStartPage() {
               <div className="w-36 h-20 rounded-full bg-orange-500 opacity-50"></div>
             </div>
           )}
-          {connectionCount < 0 ? (
+          {connectionCount < 3 ? (
             <img
               src={recording_img}
               className="cursor-pointer relative z-10 hover:scale-110 transition-transform duration-300"

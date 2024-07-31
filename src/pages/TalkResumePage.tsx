@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getChatRecordAPI } from '@apis/chat'
-import { reRecommendJobAPI } from '@apis/job'
+import { getResumeAPI } from '@apis/resume'
 import bgTalk from '@assets/images/bgTalk.png'
 import bitnarae_default from '@assets/images/bitnarae_default.png'
-import RecommendTalkBox from '@components/talk/RecommendTalkBox'
+import ResumeTalkBox from '@components/talk/ResumeTalkBox'
 import { useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
@@ -19,7 +19,7 @@ interface ChatRecord {
   chatResponses: Record[]
 }
 
-function TalkRecommendPage() {
+function TalkResumePage() {
   const navigate = useNavigate()
   const [isChatLogVisible, setIsChatLogVisible] = useState<boolean>(false)
   const [chatRecords, setChatRecords] = useState<ChatRecord | null>(null)
@@ -50,15 +50,15 @@ function TalkRecommendPage() {
 
   const name = localStorage.getItem('name')
 
-  const handleReRecommendClick = async (): Promise<void> => {
+  const handleGetResumeClick = async (): Promise<void> => {
     const token = localStorage.getItem('accessToken')
     if (token) {
       try {
         setLoading(true)
-        const res = await reRecommendJobAPI({ token })
+        const res = await getResumeAPI({ token })
         if (res && typeof res !== 'boolean') {
-          sessionStorage.setItem('job', res.recommendJob)
-          navigate('/talk_recommend')
+          console.log(res)
+          navigate('/main')
         } else {
           console.error('Failed to fetch recommended job')
         }
@@ -84,20 +84,13 @@ function TalkRecommendPage() {
         />
       </div>
       <div className="relative flex flex-col items-center">
-        <RecommendTalkBox />
-        <img src={bitnarae_default} className="mt-8 mb-6" />
+        <ResumeTalkBox />
+        <img src={bitnarae_default} className="mt-8 mb-12" />
       </div>
-      <div className="flex space-x-4 -mt-16">
+      <div className="flex space-x-4 -mt-16 mb-2">
         <button
-          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
-          onClick={() => navigate('/talk_resume')}>
-          맞는 것
-          <br />
-          같아!
-        </button>
-        <button
-          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
-          onClick={handleReRecommendClick}
+          className="flex justify-center items-center bg-orange-500 text-white p-4 w-32 h-16 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+          onClick={handleGetResumeClick}
           disabled={loading}>
           {loading ? (
             <svg
@@ -118,19 +111,13 @@ function TalkRecommendPage() {
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
           ) : (
-            <>
-              다른
-              <br />
-              추천은?
-            </>
+            <>좋아!</>
           )}
         </button>
         <button
-          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
-          onClick={() => navigate('/talk_start')}>
-          다시
-          <br />
-          대화하자
+          className="flex justify-center items-center bg-orange-500 text-white p-4 w-32 h-16 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+          onClick={() => navigate('/main')}>
+          아니, 끝내자
         </button>
       </div>
       <button
@@ -167,4 +154,4 @@ function TalkRecommendPage() {
   )
 }
 
-export default TalkRecommendPage
+export default TalkResumePage

@@ -31,7 +31,7 @@ export const reRecommendJobAPI = async ({ token }: GetData): Promise<ApiResponse
     if (!token) {
       throw new Error('Access token not found')
     }
-    const response: AxiosResponse<ApiResponse> = await client.get('/recommend', {
+    const response: AxiosResponse<ApiResponse> = await client.get('/re-recommend', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
