@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getChatRecordAPI } from '@apis/chat'
-import { reRecommendJobAPI } from '@apis/job'
+// import { reRecommendJobAPI } from '@apis/job'
 import bgTalk from '@assets/images/bgTalk.png'
 import bitnarae_default from '@assets/images/bitnarae_default.png'
 import RecommendTalkBox from '@components/talk/RecommendTalkBox'
 import { useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
-import { useConnectionStore, useLoadingStore } from 'store/store'
+import { useConnectionStore } from 'store/store'
 import '../styles/talk.css'
 
 interface Record {
@@ -23,7 +23,7 @@ function TalkRecommendPage() {
   const navigate = useNavigate()
   const [isChatLogVisible, setIsChatLogVisible] = useState<boolean>(false)
   const [chatRecords, setChatRecords] = useState<ChatRecord | null>(null)
-  const { loading, setLoading } = useLoadingStore()
+  // const { loading, setLoading } = useLoadingStore()
   const { connectionCount, setConnectionCount } = useConnectionStore()
 
   useEffect(() => {
@@ -51,27 +51,27 @@ function TalkRecommendPage() {
 
   const name = localStorage.getItem('name')
 
-  const handleReRecommendClick = async (): Promise<void> => {
-    const token = localStorage.getItem('accessToken')
-    if (token) {
-      try {
-        setLoading(true)
-        const res = await reRecommendJobAPI({ token })
-        if (res && typeof res !== 'boolean') {
-          sessionStorage.setItem('job', res.recommendJob)
-          navigate('/talk_recommend')
-        } else {
-          console.error('Failed to fetch recommended job')
-        }
-      } catch (error) {
-        console.error('Error fetching recommended job:', error)
-      } finally {
-        setLoading(false)
-      }
-    } else {
-      console.error('No access token found')
-    }
-  }
+  // const handleReRecommendClick = async (): Promise<void> => {
+  //   const token = localStorage.getItem('accessToken')
+  //   if (token) {
+  //     try {
+  //       setLoading(true)
+  //       const res = await reRecommendJobAPI({ token })
+  //       if (res && typeof res !== 'boolean') {
+  //         sessionStorage.setItem('job', res.recommendJob)
+  //         navigate('/talk_recommend')
+  //       } else {
+  //         console.error('Failed to fetch recommended job')
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching recommended job:', error)
+  //     } finally {
+  //       setLoading(false)
+  //     }
+  //   } else {
+  //     console.error('No access token found')
+  //   }
+  // }
 
   const handleReTalk = (): void => {
     setConnectionCount(0)
@@ -100,13 +100,13 @@ function TalkRecommendPage() {
       </div>
       <div className="flex space-x-4 -mt-16">
         <button
-          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-20 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+          className="flex justify-center items-center bg-orange-500 text-white p-4 w-28 h-20 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
           onClick={() => navigate('/talk_resume')}>
           맞는 것
           <br />
           같아!
         </button>
-        <button
+        {/* <button
           className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-20 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
           onClick={handleReRecommendClick}
           disabled={loading}>
@@ -135,9 +135,9 @@ function TalkRecommendPage() {
               추천은?
             </>
           )}
-        </button>
+        </button> */}
         <button
-          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-20 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+          className="flex justify-center items-center bg-orange-500 text-white p-4 w-28 h-20 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
           onClick={handleReTalk}>
           다시
           <br />
