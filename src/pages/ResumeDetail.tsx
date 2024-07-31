@@ -15,7 +15,7 @@ interface ResumeItem {
 function ResumeDetailPage() {
   const navigate = useNavigate()
   const { resume_id } = useParams<{ resume_id: string }>()
-  const [resume, setResume] = useState<ResumeItem | null>(null)
+  const [resume, setResume] = useState<ResumeItem | undefined>(undefined)
   const [loading, setLoading] = useState<boolean>(true)
   const [markdownContent, setMarkdownContent] = useState<string>('')
 
@@ -40,10 +40,6 @@ function ResumeDetailPage() {
     }
     fetchData()
   }, [resume_id])
-
-  if (!resume) {
-    return <p>No resume found</p>
-  }
 
   return (
     <>
@@ -75,13 +71,15 @@ function ResumeDetailPage() {
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
         ) : (
-          <div className="w-full p-4">
-            <div className="bg-white p-4 rounded-lg shadow">
-              <h2 className="text-2xl font-bold mb-2">{resume.name}</h2>
-              <h3 className="text-xl text-customOrange font-semibold mb-4">{resume.job}</h3>
-              <pre className="whitespace-pre-wrap">{markdownContent}</pre>
+          resume && (
+            <div className="w-full p-4">
+              <div className="bg-white p-4 rounded-lg shadow">
+                <h2 className="text-2xl font-bold mb-2">{resume.name}</h2>
+                <h3 className="text-xl text-customOrange font-semibold mb-4">{resume.job}</h3>
+                <pre className="whitespace-pre-wrap">{markdownContent}</pre>
+              </div>
             </div>
-          </div>
+          )
         )}
       </main>
       <NavBar />
