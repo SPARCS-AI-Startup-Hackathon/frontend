@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getChatRecordAPI } from '@apis/chat'
+import { reRecommendJobAPI } from '@apis/job'
 import bgTalk from '@assets/images/bgTalk.png'
 import bitnarae_default from '@assets/images/bitnarae_default.png'
 import RecommendTalkBox from '@components/talk/RecommendTalkBox'
 import { useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
+import { useLoadingStore } from 'store/store'
 import '../styles/talk.css'
 
 interface Record {
@@ -21,6 +23,7 @@ function TalkRecommendPage() {
   const navigate = useNavigate()
   const [isChatLogVisible, setIsChatLogVisible] = useState<boolean>(false)
   const [chatRecords, setChatRecords] = useState<ChatRecord | null>(null)
+  const { loading, setLoading } = useLoadingStore()
 
   useEffect(() => {
     if (isChatLogVisible) {
@@ -47,6 +50,28 @@ function TalkRecommendPage() {
 
   const name = localStorage.getItem('name')
 
+  const handleReRecommendClick = async (): Promise<void> => {
+    const token = localStorage.getItem('accessToken')
+    if (token) {
+      try {
+        setLoading(true)
+        const res = await reRecommendJobAPI({ token })
+        if (res && typeof res !== 'boolean') {
+          sessionStorage.setItem('job', res.recommendJob)
+          navigate('/talk_recommend')
+        } else {
+          console.error('Failed to fetch recommended job')
+        }
+      } catch (error) {
+        console.error('Error fetching recommended job:', error)
+      } finally {
+        setLoading(false)
+      }
+    } else {
+      console.error('No access token found')
+    }
+  }
+
   return (
     <div
       className="w-dvw max-w-[375px] h-dvh m-auto bg-cover bg-center flex flex-col items-center justify-between shadow-md"
@@ -66,8 +91,31 @@ function TalkRecommendPage() {
         <button className="bg-orange-500 text-white py-4 px-8 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300">
           맞는 것 같아!
         </button>
-        <button className="bg-orange-500 text-white py-4 px-8 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300">
-          다른 추천은?
+        <button
+          className="bg-orange-500 text-white py-4 px-8 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+          onClick={handleReRecommendClick}
+          disabled={loading}>
+          {loading ? (
+            <svg
+              className="animate-spin h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24">
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          ) : (
+            '다른 추천은?'
+          )}
         </button>
       </div>
       <button
