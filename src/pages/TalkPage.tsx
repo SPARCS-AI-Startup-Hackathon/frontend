@@ -21,9 +21,11 @@ function TalkPage() {
       </div>
       <div className="relative flex flex-col items-center">
         <TalkBox />
-        <img src={bitnarae_default} className="mt-8" />
+        <img src={bitnarae_default} className="mt-8 mb-12" />
       </div>
-      <button className="w-[90%] text-white text-xl font-bold bg-[#FA8D43] p-2.5 px-10 rounded-3xl mb-10 active:bg-orange-500">
+      <button
+        className="w-[90%] text-white text-xl font-bold bg-[#FA8D43] p-2.5 px-10 rounded-3xl mb-10 active:bg-orange-500"
+        onClick={() => navigate('/talk_start')}>
         시작하기
       </button>
     </div>

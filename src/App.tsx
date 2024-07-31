@@ -3,6 +3,7 @@ import MainPage from '@pages/MainPage'
 import OnBoardPage from '@pages/OnBoardPage'
 import RegisterPage from '@pages/RegisterPage'
 import TalkPage from '@pages/TalkPage'
+import TalkStartPage from '@pages/TalkStartPage'
 import TestPage from '@pages/TestPage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
@@ -16,6 +17,7 @@ function App() {
           <Route path="/login" element={<LoginPage />}></Route>
           <Route path="/register" element={<RegisterPage />}></Route>
           <Route path="/talk" element={<TalkPage />}></Route>
+          <Route path="/talk_start" element={<TalkStartPage />}></Route>
           <Route path="/test" element={<TestPage />}></Route>
         </Routes>
       </BrowserRouter>
