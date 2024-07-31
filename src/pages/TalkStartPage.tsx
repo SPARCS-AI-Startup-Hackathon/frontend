@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { getChatRecordAPI } from '@apis/chat'
 import bgTalk from '@assets/images/bgTalk.png'
 import bitnarae_default from '@assets/images/bitnarae_default.png'
 import bitnarae_talk from '@assets/images/bitnarea_talk.png'
@@ -18,6 +19,15 @@ declare global {
   }
 }
 
+interface Record {
+  sender: string
+  content: string
+}
+
+interface ChatRecord {
+  chatResponses: Record[]
+}
+
 function TalkStartPage() {
   const navigate = useNavigate()
   const { isPlaying } = useAudioStore()
@@ -25,6 +35,8 @@ function TalkStartPage() {
   const [isRecording, setIsRecording] = useState<boolean>(false)
   const [blurStep, setBlurStep] = useState<number>(0)
   const [transcript, setTranscript] = useState<string>('')
+  const [isChatLogVisible, setIsChatLogVisible] = useState<boolean>(false)
+  const [chatRecords, setChatRecords] = useState<ChatRecord | null>(null)
 
   useTranscriptHandler(transcript)
 
@@ -65,6 +77,21 @@ function TalkStartPage() {
       }
     }
   }, [isRecording])
+
+  useEffect(() => {
+    if (isChatLogVisible) {
+      const fetchChatRecords = async () => {
+        const token = localStorage.getItem('accessToken')
+        if (token) {
+          const data = await getChatRecordAPI({ token })
+          if (data && typeof data !== 'boolean') {
+            setChatRecords(data)
+          }
+        }
+      }
+      fetchChatRecords()
+    }
+  }, [isChatLogVisible])
 
   const getBlurClass = (): string => {
     switch (blurStep) {
@@ -116,19 +143,34 @@ function TalkStartPage() {
     }
   }
 
+  const handleChatLogClick = (): void => {
+    setIsChatLogVisible(true)
+  }
+
+  const handleCloseChatLog = (): void => {
+    setIsChatLogVisible(false)
+  }
+
+  const name = localStorage.getItem('name')
+
   return (
     <div
-      className="w-dvw max-w-[375px] h-dvh m-auto bg-cover bg-center flex flex-col items-center justify-between shadow-md"
+      className="w-dvw max-w-[375px] h-dvh m-auto bg-cover bg-center flex flex-col items-center justify-between shadow-md relative"
       style={{ backgroundImage: `url(${bgTalk})` }}>
-      <div className="w-full flex justify-start p-4 py-5">
+      <div
+        className={`w-full h-full absolute top-0 left-0 ${
+          isChatLogVisible ? 'bg-black bg-opacity-50' : 'bg-transparent'
+        } transition-opacity duration-300`}
+      />
+      <div className="w-full flex justify-start p-4 py-5 z-10 relative">
         <FaArrowLeftLong
           size="28"
           className="cursor-pointer text-customOrange"
           onClick={() => navigate('/talk')}
         />
       </div>
-      <div className="relative flex flex-col items-center">
-        <DynamicTalkBox />
+      <div className="relative flex flex-col items-center z-10">
+        <DynamicTalkBox isChatLogVisible={isChatLogVisible} />
         <img src={currentImage} className="mt-8 -mb-2" />
         <div className="relative mt-4">
           {isRecording && (
@@ -144,10 +186,35 @@ function TalkStartPage() {
         </div>
       </div>
       <button
-        className="w-full text-[#FF8E4E] text-lg font-semibold bg-white p-2.5 px-10"
-        onClick={() => navigate('/talk_start')}>
+        className="w-full text-[#FF8E4E] text-lg font-semibold bg-white p-2.5 px-10 z-10 relative"
+        onClick={handleChatLogClick}>
         대화 기록 보기
       </button>
+      <div
+        className={`fixed bottom-0 left-0 right-0 w-dvw max-w-[375px] m-auto h-2/3 bg-white shadow-lg border transition-transform duration-500 ${
+          isChatLogVisible ? 'translate-y-0' : 'translate-y-full'
+        } z-20`}>
+        <div className="flex justify-between p-4 border-b border-gray-300">
+          <h2 className="text-xl font-semibold">대화 기록</h2>
+          <button onClick={handleCloseChatLog}>닫기</button>
+        </div>
+        <div className="p-6 pb-16 h-full overflow-y-auto">
+          {chatRecords ? (
+            chatRecords.chatResponses.map((record, index) => (
+              <div
+                key={index}
+                className={`mb-4 p-4 rounded-lg max-w-[70%] ${
+                  record.sender === name ? 'bg-[#FFEAC1] ml-auto' : 'bg-gray-200 mr-auto'
+                }`}>
+                <p className="font-bold">{record.sender}</p>
+                <p>{record.content}</p>
+              </div>
+            ))
+          ) : (
+            <p></p>
+          )}
+        </div>
+      </div>
     </div>
   )
 }
