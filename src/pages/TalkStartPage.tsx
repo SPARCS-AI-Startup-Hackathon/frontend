@@ -8,7 +8,7 @@ import DynamicTalkBox from '@components/talk/DynamicTalkBox'
 import { useEffect, useState } from 'react'
 import { FaArrowLeftLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
-import { useAudioStore } from 'store/store'
+import { useAudioStore, useConnectionStore } from 'store/store'
 import useTranscriptHandler from '../hooks/useTranscriptHandler'
 import '../styles/talk.css'
 
@@ -37,6 +37,7 @@ function TalkStartPage() {
   const [transcript, setTranscript] = useState<string>('')
   const [isChatLogVisible, setIsChatLogVisible] = useState<boolean>(false)
   const [chatRecords, setChatRecords] = useState<ChatRecord | null>(null)
+  const { connectionCount } = useConnectionStore()
 
   useTranscriptHandler(transcript)
 
@@ -178,11 +179,20 @@ function TalkStartPage() {
               <div className="w-36 h-20 rounded-full bg-orange-500 opacity-50"></div>
             </div>
           )}
-          <img
-            src={recording_img}
-            className="cursor-pointer relative z-10 hover:scale-110 transition-transform duration-300"
-            onClick={handleRecordingClick}
-          />
+          {connectionCount < 3 ? (
+            <img
+              src={recording_img}
+              className="cursor-pointer relative z-10 hover:scale-110 transition-transform duration-300"
+              onClick={handleRecordingClick}
+            />
+          ) : (
+            <div className="flex space-x-4">
+              <button className="bg-orange-500 text-white py-2 px-4 rounded-lg">직업 추천</button>
+              <button className="bg-orange-500 text-white py-2 px-4 rounded-lg">
+                다른 추천은?
+              </button>
+            </div>
+          )}
         </div>
       </div>
       <button

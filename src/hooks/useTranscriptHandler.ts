@@ -5,7 +5,7 @@ import { parseContent, parseData } from '../utils/parser'
 
 const useTranscriptHandler = (transcript: string) => {
   const { setMessage, setAllMessagesReceived } = useMessageStore()
-  const { connectionCount, incrementConnectionCount } = useConnectionStore()
+  const { incrementConnectionCount } = useConnectionStore()
 
   useEffect(() => {
     if (transcript) {
@@ -21,7 +21,6 @@ const useTranscriptHandler = (transcript: string) => {
             eventSource.onopen = () => {
               console.log('새롭게 연결됨')
               incrementConnectionCount()
-              console.log(connectionCount)
             }
 
             eventSource.onmessage = (event: MessageEvent) => {
