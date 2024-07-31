@@ -5,6 +5,15 @@ import { useNavigate } from 'react-router-dom'
 function WelcomePage() {
   const navigate = useNavigate()
 
+  const handleStartClick = () => {
+    const accessToken = localStorage.getItem('accessToken')
+    if (accessToken) {
+      navigate('/main')
+    } else {
+      navigate('/login')
+    }
+  }
+
   return (
     <div className="w-dvw max-w-[375px] h-dvh m-auto flex flex-col items-center justify-center shadow-md">
       <p className="font-bold text-[#F4BE15] text-xl p-4 ">당신만의 빛나는 시니어 라이프</p>
@@ -12,8 +21,8 @@ function WelcomePage() {
       <img src={bitnarae} className="" />
       <button
         className="w-[90%] text-white text-xl font-bold p-2.5 px-10 rounded-3xl my-2 bg-customOrange active:bg-orange-400"
-        onClick={() => navigate('/login')}>
-        로그인
+        onClick={handleStartClick}>
+        시작하기
       </button>
       <button
         className="w-[90%] text-customOrange text-xl font-bold p-2.5 px-10 rounded-3xl my-2 bg-white active:bg-orange-50 border border-customOrange"
