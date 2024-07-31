@@ -88,11 +88,13 @@ function TalkRecommendPage() {
         <img src={bitnarae_default} className="mt-8 mb-4" />
       </div>
       <div className="flex space-x-4 mb-4 -mt-8">
-        <button className="bg-orange-500 text-white py-4 px-8 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300">
-          맞는 것 같아!
+        <button className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300">
+          맞는 것
+          <br />
+          같아!
         </button>
         <button
-          className="bg-orange-500 text-white py-4 px-8 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+          className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
           onClick={handleReRecommendClick}
           disabled={loading}>
           {loading ? (
@@ -114,8 +116,17 @@ function TalkRecommendPage() {
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
           ) : (
-            '다른 추천은?'
+            <>
+              다른
+              <br />
+              추천은?
+            </>
           )}
+        </button>
+        <button className="flex justify-center items-center bg-orange-500 text-white p-4 w-24 h-24 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300">
+          다시
+          <br />
+          대화하자
         </button>
       </div>
       <button
