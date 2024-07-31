@@ -89,7 +89,7 @@ function DynamicTalkBox({ isChatLogVisible }: TalkBoxProps) {
       const response = await axios.post(
         '/clova/tts-premium/v1/tts',
         new URLSearchParams({
-          speaker: 'nara',
+          speaker: 'nshasha',
           text,
           volume: '0',
           speed: '0',
