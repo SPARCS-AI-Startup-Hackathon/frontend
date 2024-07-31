@@ -27,7 +27,7 @@ function App() {
           <Route path="/talk_recommend" element={<TalkRecommendPage />} />
           <Route path="/talk_resume" element={<TalkResumePage />} />
           <Route path="/resume" element={<ResumePage />} />
-          <Route path="/resume:resume_id" element={<ResumeDetailPage />} />
+          <Route path="/resume/:resume_id" element={<ResumeDetailPage />} />
           <Route path="/test" element={<TestPage />} />
         </Routes>
       </BrowserRouter>

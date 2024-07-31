@@ -93,7 +93,7 @@ function TalkRecommendPage() {
       <div className="relative flex flex-col items-center">
         <RecommendTalkBox />
         <img src={bitnarae_default} className="mt-8 mb-2" />
-        <div className="relative -mt-8 mb-16  hover:scale-110 transition-transform duration-300 cursor-pointer">
+        <div className="relative -mt-8 mb-16  hover:scale-110 transition-transform duration-300 cursor-pointer invisible">
           <button className="text-white font-bold text-lg">이유 듣기</button>
           <div className="absolute inset-0 bg-[#FA8D43] blur-sm opacity-30 p-4 rounded-3xl"></div>
         </div>

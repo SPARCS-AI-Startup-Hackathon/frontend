@@ -8,6 +8,6 @@ COPY ./package.json ./
 
 COPY . ./
 
-RUN npm
+RUN npm install
 
 CMD ["npm", "run", "build"]
