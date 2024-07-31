@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react'
 
 function TalkBox() {
@@ -20,11 +21,9 @@ function TalkBox() {
     {
       message: (
         <p className="text-xl py-2 break-words text-[#8F8F8F]">
-          안녕!
-          <br />
           <span className="text-[#FA8D43] font-bold">마이크 버튼을 누르고 </span>말을 하면
           <br />
-          제가 알아들을게요!
+          제가 듣고 답변 해드릴게요!
         </p>
       ),
       delay: 3000,
@@ -32,11 +31,18 @@ function TalkBox() {
     {
       message: (
         <p className="text-xl py-2 break-words text-[#8F8F8F]">
-          마이크버튼을
+          <span className="text-[#FA8D43] font-bold">말풍선을 클릭</span>하면
+          <br />제 대답을 읽어드려요!
+        </p>
+      ),
+      delay: 3000,
+    },
+    {
+      message: (
+        <p className="text-xl py-2 break-words text-[#8F8F8F]">
+          하단에 <span className="text-[#FA8D43] font-bold">대화 기록</span> 버튼을 눌러
           <br />
-          <span className="text-[#FA8D43] font-bold">한번 더 누르면</span>
-          <br />
-          녹음이 중지되요!
+          진행중인 대화 내용을 <br />볼 수 있어요!
         </p>
       ),
       delay: 3000,
