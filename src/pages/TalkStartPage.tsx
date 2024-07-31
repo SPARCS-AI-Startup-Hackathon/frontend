@@ -203,21 +203,21 @@ function TalkStartPage() {
               <div className="w-36 h-20 rounded-full bg-orange-500 opacity-50"></div>
             </div>
           )}
-          {connectionCount < 3 ? (
+          {connectionCount < 0 ? (
             <img
               src={recording_img}
               className="cursor-pointer relative z-10 hover:scale-110 transition-transform duration-300"
               onClick={handleRecordingClick}
             />
           ) : (
-            <div className="flex space-x-4">
+            <div className="w-full flex space-x-4">
               <button
-                className="bg-orange-500 text-white py-4 px-8 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+                className="bg-orange-500 text-white py-4 px-8 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300 w-64 h-14 mt-4 mb-2"
                 onClick={handleRecommendClick}
                 disabled={loading}>
                 {loading ? (
                   <svg
-                    className="animate-spin h-5 w-5 text-white"
+                    className="animate-spin h-5 w-5 text-white mx-auto"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24">
