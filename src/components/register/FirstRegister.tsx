@@ -23,7 +23,7 @@ function FirstRegister({ goToNext, formData, updateFormData }: RegisterProps) {
           <FaArrowLeftLong
             size="20"
             className="absolute left-0"
-            onClick={() => navigate('/main')}
+            onClick={() => navigate('/welcome')}
           />
           <p className="text-xl font-semibold">회원가입</p>
         </div>
