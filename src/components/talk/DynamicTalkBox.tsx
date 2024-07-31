@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useEffect, useRef, useState } from 'react'
+import useAudioStore from '../../store/store'
 
 interface ParsedMessage {
   message?: {
@@ -12,6 +13,7 @@ function DynamicTalkBox() {
   const [message, setMessage] = useState<string>('')
   const [allMessagesReceived, setAllMessagesReceived] = useState<boolean>(false)
   const audioRef = useRef<HTMLAudioElement>(null)
+  const { setPlaying } = useAudioStore()
 
   const parseContent = (response: string): string => {
     try {
@@ -111,9 +113,24 @@ function DynamicTalkBox() {
 
   const handleUserInteraction = () => {
     if (audioRef.current) {
-      audioRef.current.play().catch((error) => console.error('Audio play failed:', error))
+      audioRef.current
+        .play()
+        .then(() => {
+          setPlaying(true)
+        })
+        .catch((error) => {
+          console.error('Audio play failed:', error)
+        })
     }
   }
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.onended = () => {
+        setPlaying(false)
+      }
+    }
+  }, [])
 
   return (
     <div
