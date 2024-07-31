@@ -6,7 +6,7 @@ interface GetData {
 }
 
 interface ApiResponse {
-  message: string
+  recommendJob: string
 }
 
 export const recommendJobAPI = async ({ token }: GetData): Promise<ApiResponse | boolean> => {
@@ -14,7 +14,7 @@ export const recommendJobAPI = async ({ token }: GetData): Promise<ApiResponse |
     if (!token) {
       throw new Error('Access token not found')
     }
-    const response: AxiosResponse<ApiResponse> = await client.get('/get-chat', {
+    const response: AxiosResponse<ApiResponse> = await client.get('/recommend', {
       headers: {
         Authorization: `Bearer ${token}`,
       },

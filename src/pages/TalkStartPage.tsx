@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getChatRecordAPI } from '@apis/chat'
+import { recommendJobAPI } from '@apis/job'
 import bgTalk from '@assets/images/bgTalk.png'
 import bitnarae_default from '@assets/images/bitnarae_default.png'
 import bitnarae_talk from '@assets/images/bitnarea_talk.png'
@@ -152,6 +153,21 @@ function TalkStartPage() {
     setIsChatLogVisible(false)
   }
 
+  const handleRecommendClick = async (): Promise<void> => {
+    const token = localStorage.getItem('accessToken')
+    if (token) {
+      const res = await recommendJobAPI({ token })
+      if (res && typeof res !== 'boolean') {
+        sessionStorage.setItem('job', res.recommendJob)
+        navigate('/talk_recommend')
+      } else {
+        console.error('Failed to fetch recommended job')
+      }
+    } else {
+      console.error('No access token found')
+    }
+  }
+
   const name = localStorage.getItem('name')
 
   return (
@@ -188,9 +204,9 @@ function TalkStartPage() {
           ) : (
             <div className="flex space-x-4">
               <button
-                className="bg-orange-500 text-white py-2 px-4 rounded-xl"
-                onClick={() => navigate('/talk_recommend')}>
-                직업 추천을 받을래요
+                className="bg-orange-500 text-white py-4 px-8 rounded-3xl text-lg font-semibold hover:scale-105 transition-transform duration-300"
+                onClick={handleRecommendClick}>
+                직업 추천을 받을래요!
               </button>
             </div>
           )}

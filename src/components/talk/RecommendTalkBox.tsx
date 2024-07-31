@@ -5,6 +5,8 @@ function RecommendTalkBox() {
   const [visible, setVisible] = useState(false)
   const [messageStep, setMessageStep] = useState(0)
 
+  const job = sessionStorage.getItem('job')
+
   const steps = [
     {
       message: (
@@ -21,7 +23,7 @@ function RecommendTalkBox() {
     {
       message: (
         <p className="text-xl py-2 break-words text-[#8F8F8F]">
-          <span className="text-[#FA8D43] font-bold">*직업이름*</span>을
+          <span className="text-[#FA8D43] font-bold">{job} </span>을(를)
           <br />
           즐겁게 하실 것 같아요.
         </p>
