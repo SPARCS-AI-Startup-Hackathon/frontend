@@ -211,7 +211,7 @@ function TalkStartPage() {
               </div>
             ))
           ) : (
-            <p>대화 기록을 불러오는 중...</p>
+            <p></p>
           )}
         </div>
       </div>

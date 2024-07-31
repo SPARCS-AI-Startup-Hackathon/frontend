@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useEffect, useRef } from 'react'
+import loading from '../../assets/gif/loading.gif'
 import { useAudioStore, useMessageStore } from '../../store/store'
 
 interface ParsedMessage {
@@ -144,7 +145,11 @@ function DynamicTalkBox({ isChatLogVisible }: TalkBoxProps) {
         className={`flex relative items-center justify-center bg-white p-4 pt-4 rounded-3xl w-full h-full overflow-y-auto text-xl text-[#8F8F8F] ${
           isChatLogVisible ? 'bg-opacity-15' : ''
         } }`}>
-        {message}
+        {message ? (
+          message
+        ) : (
+          <img src={loading} alt="Loading" className="w-20 h-10 object-contain" />
+        )}
         <audio ref={audioRef} />
       </div>
       <div
