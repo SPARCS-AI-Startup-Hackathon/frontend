@@ -22,7 +22,9 @@ function MainPage() {
             시작하기
           </button>
         </div>
-        <div className="h-[30%] mt-4 w-[90%] relative hover:scale-105 transition-transform duration-300">
+        <div
+          className="h-[30%] mt-4 w-[90%] relative hover:scale-105 transition-transform duration-300"
+          onClick={() => navigate('/resume')}>
           <img src={bgStartResume} className="w-full h-full" />
           <p className="absolute text-white text-2xl font-bold top-8 left-5">Ai로 자기소개서를</p>
           <p className="absolute text-white text-2xl font-bold top-16 left-5">생성해 보세요!</p>

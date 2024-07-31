@@ -2,6 +2,8 @@ import LoginPage from '@pages/LoginPage'
 import MainPage from '@pages/MainPage'
 import OnBoardPage from '@pages/OnBoardPage'
 import RegisterPage from '@pages/RegisterPage'
+import ResumeDetailPage from '@pages/ResumeDetail'
+import ResumePage from '@pages/ResumePage'
 import TalkPage from '@pages/TalkPage'
 import TalkRecommendPage from '@pages/TalkRecommendPage'
 import TalkResumePage from '@pages/TalkResumePage'
@@ -24,6 +26,8 @@ function App() {
           <Route path="/talk_start" element={<TalkStartPage />} />
           <Route path="/talk_recommend" element={<TalkRecommendPage />} />
           <Route path="/talk_resume" element={<TalkResumePage />} />
+          <Route path="/resume" element={<ResumePage />} />
+          <Route path="/resume:resume_id" element={<ResumeDetailPage />} />
           <Route path="/test" element={<TestPage />} />
         </Routes>
       </BrowserRouter>
